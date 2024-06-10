@@ -1,0 +1,32 @@
+name: NeoDim_Skyrim_on_Words
+description: "NeoDim_Skyrim_on_Words"
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.1.0+8
+
+environment:
+  sdk: '>=3.2.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  html:
+  http:
+  cupertino_icons: ^1.0.2
+  flutter_launcher_icons:
+  window_manager: ^0.3.9
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  package_info_plus:
+
+flutter_launcher_icons:
+  image_path: "assets/icon/icon.png"
+  windows:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    icon_size: 48
+
+flutter:
+  uses-material-design: true
