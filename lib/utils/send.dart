@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../config/config.dart';
-
 Future<String> generateText(String input) async {
   const String url = 'https://nat.dev/api/inference/text';
 
@@ -32,7 +30,7 @@ Future<String> generateText(String input) async {
   };
   final http.StreamedResponse response = await http.Client().send(
     http.Request('POST', Uri.parse(url))
-      ..headers.addAll(headers)
+      //..headers.addAll(headers)
       ..body = jsonEncode(data),
   );
 
@@ -48,7 +46,9 @@ Future<String> processEventStream(http.StreamedResponse response) async {
   String result = "";
   String buffer = "";
 
-  await for (var line in response.stream.transform(utf8.decoder).transform(const LineSplitter())) {
+  await for (var line in response.stream
+      .transform(utf8.decoder)
+      .transform(const LineSplitter())) {
     if (line.isNotEmpty) {
       if (line.startsWith("data:")) {
         final String data = line.substring(5).trim();
@@ -60,6 +60,10 @@ Future<String> processEventStream(http.StreamedResponse response) async {
     }
   }
 
-  result = result.replaceAll("[INITIALIZING]", "").replaceAll("[COMPLETED]", "").replaceAll("`", "").replaceAll("json", "");
+  result = result
+      .replaceAll("[INITIALIZING]", "")
+      .replaceAll("[COMPLETED]", "")
+      .replaceAll("`", "")
+      .replaceAll("json", "");
   return result;
 }
